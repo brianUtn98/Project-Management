@@ -1,0 +1,6 @@
+Dockerfile
+.vscode
+.circleci
+.husky
+docker-compose*
+node_modules
