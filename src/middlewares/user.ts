@@ -35,11 +35,15 @@ const user = async (
       })
     )[0] as User;
 
+    await UserRepository.updateById(Number(user.id), {
+      lastActivity: new Date(),
+    });
+
+    // const user = (await UserRepository.findById(Number(payload.user.id))) as User
+
     if (!user) {
       return next();
     }
-
-    await user.save();
 
     (request as any).user = user;
 
