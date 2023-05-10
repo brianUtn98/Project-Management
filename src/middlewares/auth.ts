@@ -7,7 +7,7 @@ const auth = async (
   response: Response,
   next: NextFunction,
 ) => {
-  const excluded = ['/login', '/docs'];
+  const excluded = ['/login', '/docs', '/signup'];
 
   if (!excluded.every((route) => !request.path.includes(route))) {
     next();

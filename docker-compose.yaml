@@ -1,0 +1,33 @@
+version: '3.7'
+services:
+  db:
+    image: postgres:14
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=root
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./volumes/psql:/var/lib/postgresql/data
+      - ./database-seed.sql:/docker-entrypoint-initdb.d/database-seed.sql
+    networks:
+      - app-network
+
+  pgadmin:
+    networks:
+      - app-network
+    image: dpage/pgadmin4
+    profiles:
+      - admin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: 'brian.gmonroy98@gmail.com'
+      PGADMIN_DEFAULT_PASSWORD: 'root'
+    ports:
+      - '16543:80'
+    depends_on:
+      - db
+networks:
+  app-network:
+    driver: bridge
