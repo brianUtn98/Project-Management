@@ -10,6 +10,8 @@ import Role from './Role';
 import UserRole from './UserRole';
 import UserCredentials from './UserCredentials';
 import UserStatus from './UserStatus';
+import Project from '../../projects/domain/Project';
+import UserProject from '../../projects/domain/UserProject';
 
 @Table({
   freezeTableName: true,
@@ -32,6 +34,9 @@ class User extends Entity {
 
   @BelongsToMany(() => Role, () => UserRole)
   roles!: Role[];
+
+  @BelongsToMany(() => Project, () => UserProject)
+  projects!: Project[];
 }
 
 export default User;
