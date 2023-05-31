@@ -1,28 +1,24 @@
 import {
-    Column,
-    Model,
-    DataType,
-    Table,
-    DeletedAt,
-  } from 'sequelize-typescript';
-  
-  @Table({
-    freezeTableName: true,
+  Column,
+  Model,
+  DataType,
+  Table,
+  DeletedAt,
+} from 'sequelize-typescript';
+
+@Table({
+  freezeTableName: true,
+})
+export default class Entity extends Model {
+  @Column({
+    autoIncrement: true,
+    primaryKey: true,
+    field: 'id',
+    type: DataType.BIGINT,
   })
-  export default class Entity extends Model {
-    @Column({
-      autoIncrement: true,
-      primaryKey: true,
-      field: 'id',
-      type: DataType.BIGINT,
-    })
-    declare id: number;
-  
-    @DeletedAt
-    declare deletedAt: Date;
-  }
-  
-  type IEntity = typeof Entity;
-  
-  export { IEntity };
-  
+  declare id: number;
+}
+
+type IEntity = typeof Entity;
+
+export { IEntity };

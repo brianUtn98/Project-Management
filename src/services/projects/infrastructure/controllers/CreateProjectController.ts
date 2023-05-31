@@ -20,10 +20,7 @@ class CreateProjectController implements Controller {
         createdAt: new Date(),
       })) as Project;
 
-      await UserProject.create({
-        userId: user.id,
-        projectId: project.id,
-      });
+      project.$add('members', [user.id]);
 
       return res.status(201).json({ result: { project } });
     } catch (err) {

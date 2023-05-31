@@ -8,11 +8,13 @@ class CanCreateProjectTask {
 
     const user = (req as any).user as User;
 
+    const asignee = (req as any).asignee as User;
     try {
       await new UserContextualValidation(user).validateProjectId(id);
-
+      await new UserContextualValidation(asignee).validateProjectId(id);
       next();
     } catch (err) {
+      console.log(err);
       next(err);
     }
   }

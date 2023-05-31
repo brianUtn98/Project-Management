@@ -4,6 +4,8 @@ import ChangeUserStatusController from '../controllers/ChangeUserStatusControlle
 import ChangeUserStatusValidator from '../middlewares/validators/ChangeUserStatusValidator';
 import validateSchema from '../../../../middlewares/validateSchema';
 import UserCanValidator from '../../../auth/infrastructure/middlewares/validators/UserCanValidator';
+import ChangeUserRoleController from '../controllers/ChangeUserRoleController';
+import ChangeUserRoleValidator from '../middlewares/validators/ChangeUserRoleValidator';
 const userRouter = Router();
 
 userRouter.get(
@@ -12,9 +14,6 @@ userRouter.get(
     GetUserProfileController.exec(req, res, next),
 );
 
-// Id para identificar al usuario
-// El usuario existe ?
-// El usuario logueado tiene permisos ?
 userRouter.patch(
   '/users/:id/status',
   ChangeUserStatusValidator.validation(),
@@ -22,6 +21,15 @@ userRouter.patch(
   validateSchema,
   (req: Request, res: Response, next: NextFunction) =>
     ChangeUserStatusController.exec(req, res, next),
+);
+
+userRouter.post(
+  '/users/:id/roles',
+  ChangeUserRoleValidator.validation(),
+  UserCanValidator.validation(['Admin']),
+  validateSchema,
+  (req: Request, res: Response, next: NextFunction) =>
+    ChangeUserRoleController.exec(req, res, next),
 );
 
 export default userRouter;

@@ -23,6 +23,7 @@ class CreateProjectTaskController implements Controller {
 
       return res.status(201).json({ result: { task } });
     } catch (err) {
+      console.log(err);
       next(err);
     }
   }

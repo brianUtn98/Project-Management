@@ -3,12 +3,13 @@ import CreateProjectTaskController from '../controllers/CreateProjectTaskControl
 import UserCanValidator from '../../../auth/infrastructure/middlewares/validators/UserCanValidator';
 import validateSchema from '../../../../middlewares/validateSchema';
 import CanCreateProjectTask from '../middlewares/permissions/CanCreateProjectTask';
+import CreateProjectTaskValidator from '../middlewares/validators/CreateProjectTaskValidator';
 
 const taskRouter = Router();
 
 taskRouter.post(
   '/projects/:id/tasks',
-  // TODO Validator
+  CreateProjectTaskValidator.validation(),
   UserCanValidator.validation(['Admin', 'Project Owner', 'ProjectMember']),
   CanCreateProjectTask.can,
   validateSchema,
